@@ -48,7 +48,9 @@ class Tris{
         int const notTheEndOfTheGame = 1;
         int const gameEnd = 2; 
 
-        if(moves >= 5){
+        if(moves >= 9){
+            return gameEnd;
+        }else if (moves >= 5){
             if(row%2 == 0 && column%2 == 0){
                 winner = this -> rowCheck(row);
                 winner = winner || this -> columnCheck(column);
@@ -66,8 +68,6 @@ class Tris{
             if(winner){
                 return victory;
             }
-        }else if (moves >= 9){
-            return gameEnd;
         }
 
         return notTheEndOfTheGame;
