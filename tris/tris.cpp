@@ -35,7 +35,6 @@ class Tris{
         if (grid[row][column] == '-'){
             grid[row][column] = player;
             moves += 1;
-            cout << moves;
             return true;
         }else{
             return false;
