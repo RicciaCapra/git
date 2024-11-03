@@ -9,7 +9,7 @@ TrisGrid::TrisGrid(){
 }
 
 bool TrisGrid::insertMove(int row, int column, char player){
-    if (grid[row][column] == '-'){
+    if (grid[row][column] == ' '){
         grid[row][column] = player;
         moves += 1;
         return true;
