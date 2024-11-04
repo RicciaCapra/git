@@ -3,27 +3,34 @@
 
 namespace TRIS {
 
-    enum GridState {
+    typedef enum {
         PLAYING,
-        WIN_PL
-    };
+        PLAYER_1,
+        PLAYER_2,
+        END
+    } GridState;
 
     class TrisGrid{
-        public:
+        private:
         char grid[3][3];
         int moves = 0;
 
+        bool rowsCheck();
+
+        bool columnsCheck();
+
+        bool diagonalsCheck();
+
+        GridState playerSwitch();
+
+        public:
         TrisGrid();
 
-        bool insertMove(int row, int column, char player);
+        void getGrid(char get[3][3]);
 
-        int trisCheck(int row, int column);
+        bool insertMove(int row, int column);
 
-        bool rowCheck(int row);
-
-        bool columnCheck(int column);
-
-        bool diagonalCheck(int row, int column);
+        GridState trisCheck();
 
     };
 

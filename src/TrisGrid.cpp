@@ -2,83 +2,103 @@
 
 namespace TRIS {
 
-TrisGrid::TrisGrid(){
-    for (int i = 0; i < 3; i++){
-        for (int j = 0; j < 3; j++){
-            grid[i][j] = ' ';
-        }
-    }
-}
+    bool TrisGrid::rowsCheck(){
+        bool check = false;
 
-bool TrisGrid::insertMove(int row, int column, char player){
-    if (grid[row][column] == ' '){
-        grid[row][column] = player;
-        moves += 1;
-        return true;
-    }else{
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 2; j++){
+                if(grid[j][i] == grid[j + 1][i]) check = check || true;
+            }
+            if(check) return true;
+        }
+
         return false;
-    }
-};
+    };
 
-int TrisGrid::trisCheck(int row, int column){
-    bool winner = false;
-    int const victory = 0;
-    int const notTheEndOfTheGame = 1;
-    int const gameEnd = 2; 
+    bool TrisGrid::columnsCheck(){
+        bool check = false;
 
-    if(moves >= 9){
-        return gameEnd;
-    }else if (moves >= 5){
-        if(row%2 == 0 && column%2 == 0){
-            winner = this -> rowCheck(row);
-            winner = winner || this -> columnCheck(column);
-            winner = winner || this -> diagonalCheck(row, column);
-        }else if(row%2 == column%2){
-            winner = this -> rowCheck(row);
-            winner = winner || this -> columnCheck(column);
-            winner = winner || this -> diagonalCheck(row - 1, column - 1);
-            winner = winner || this -> diagonalCheck(row - 1, column + 1);
-        }else{
-            winner = this -> rowCheck(row);
-            winner = winner || this -> columnCheck(column);
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 2; j++){
+                if(grid[i][j] == grid[i][j + 1]) check = check || true;
+            }
+            if(check) return true;
         }
 
-        if(winner){
-            return victory;
-        }
-    }
+        return false;
+    };
 
-    return notTheEndOfTheGame;
-};
-
-bool TrisGrid::rowCheck(int row){
-    if(grid[row][0] == grid[row][1] && grid[row][1] == grid[row][2]){
-        return true;
-    }
-
-    return false;
-};
-
-bool TrisGrid::columnCheck(int column){
-    if(grid[0][column] == grid[1][column] && grid[1][column] == grid[2][column]){
-        return true;
-    }
-
-    return false;
-};
-
-bool TrisGrid::diagonalCheck(int row, int column){
-    if(row == column){
+    bool TrisGrid::diagonalsCheck(){
+        
         if(grid[0][0] == grid[1][1] && grid[1][1] == grid[2][2]){
             return true;
         }
-    }else{
+
         if(grid[0][2] == grid[1][1] && grid[1][1] == grid[2][0]){
             return true;
         }
+    
+        return false;
+    };
+
+    GridState TrisGrid::playerSwitch(){
+        if(moves % 2 == 1){
+            return PLAYER_1;
+        } else{
+            return PLAYER_2;
+        }
     }
 
-    return false;
-};
+    TrisGrid::TrisGrid(){
+        for (int i = 0; i < 3; i++){
+            for (int j = 0; j < 3; j++){
+                grid[i][j] = ' ';
+            }
+        }
+    }
 
+    void TrisGrid::getGrid(char get[3][3]){
+        for (int i = 0; i < 3; i++){
+            for (int j = 0; j < 3; j++){
+                get[i][j] = grid[i][j];
+            }
+        }
+    }
+
+    bool TrisGrid::insertMove(int row, int column){
+        if (grid[row][column] == ' '){
+            moves += 1;
+            
+            if(this->playerSwitch() == PLAYER_1){
+                grid[row][column] = 'X';
+            } else {
+                grid[row][column] = 'O';
+            }
+
+            return true;
+        }else{
+            return false;
+        }
+    };
+
+    GridState TrisGrid::trisCheck(){
+        bool winner = false;
+        int const victory = 0;
+        int const notTheEndOfTheGame = 1;
+        int const gameEnd = 2; 
+
+        if(moves >= 9){
+            return END;
+        }else if (moves >= 5){
+            winner = this -> rowsCheck();
+            winner = winner || this -> columnsCheck();
+            winner = winner || this -> diagonalsCheck();
+
+            if(winner){
+                return this -> playerSwitch();
+            }
+        }
+
+        return PLAYING;
+    };
 }
