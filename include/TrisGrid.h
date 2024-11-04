@@ -21,11 +21,12 @@ namespace TRIS {
 
         bool diagonalsCheck();
 
-        GridState playerSwitch();
 
         public:
         TrisGrid();
 
+        GridState playerSwitch();
+        
         void getGrid(char get[3][3]);
 
         bool insertMove(int row, int column);

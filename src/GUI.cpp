@@ -10,6 +10,8 @@
 
 using namespace std;
 
+using namespace TRIS;
+
 
 
 
@@ -40,6 +42,9 @@ int main() {
     int mouse_x;
     int mouse_y;
 
+    char current_player;
+
+
     while (!WindowShouldClose()) {
 
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
@@ -58,15 +63,26 @@ int main() {
 
             */
 
-            char current_player = (Grid.moves%2 == 0) ? player1 : player2;
+            switch (Grid.playerSwitch()) {
+                case PLAYER_1: current_player = player1;
+                break;
 
-            Grid.insertMove(row, column, current_player);
+                case PLAYER_2: current_player = player2;
+                break;
+            }
+            
+            char current_player = (Grid.playerSwitch() == 1) ? player1 : player2;
 
-            switch (Grid.trisCheck(row, column)) {
-                case 0:
+            Grid.insertMove(row, column);
+
+            switch (Grid.trisCheck()) {
+                case PLAYER_1:
                     cout << current_player << " wins! (O Green, X Blue)";
                     exit(1);
-                case 2:
+                case PLAYER_2:
+                    cout << current_player << " wins! (O Green, X Blue)";
+                    exit(1);
+                case END:
                     cout << "Draw!";
                     exit(1);
             }
@@ -78,9 +94,13 @@ int main() {
 
         ClearBackground(RAYWHITE);
 
+        char grid[3][3];
+
+        Grid.getGrid(grid);
+
         for (int i = 0; i < grid_size_x; i++) {
             for (int j = 0; j < grid_size_y; j++) {
-                Color col = Grid.grid[i][j] == player2 ? GREEN : (Grid.grid[i][j] == player1 ? BLUE : GRAY);
+                Color col = grid[i][j] == player2 ? GREEN : (grid[i][j] == player1 ? BLUE : GRAY);
                 DrawRectangle (i*square_width, j*square_height, square_width, square_height, col);
                 DrawRectangleLines(i * square_width, j * square_height, square_width, square_height, BLACK);
             }
