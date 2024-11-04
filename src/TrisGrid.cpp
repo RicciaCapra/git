@@ -6,9 +6,7 @@ namespace TRIS {
         bool check = false;
 
         for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 2; j++){
-                if(grid[j][i] == grid[j + 1][i]) check = check || true;
-            }
+            if(grid[0][i] == grid[1][i] && grid[1][i] == grid[2][i]) check = check || true;
             if(check) return true;
             check = false;
         }
@@ -20,9 +18,7 @@ namespace TRIS {
         bool check = false;
 
         for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 2; j++){
-                if(grid[i][j] == grid[i][j + 1]) check = check || true;
-            }
+            if(grid[i][0] == grid[i][1] && grid[i][1] == grid[i][2]) check = check || true;
             if(check) return true;
             check = false;
         }
