@@ -6,7 +6,7 @@ namespace TRIS {
         bool check = false;
 
         for(int i = 0; i < 3; i++){
-            if(grid[0][i] == grid[1][i] && grid[1][i] == grid[2][i]) check = check || true;
+            if(grid[0][i] == grid[1][i] && grid[1][i] == grid[2][i] && grid[0][i] != ' ') check = check || true;
             if(check) return true;
             check = false;
         }
@@ -18,7 +18,7 @@ namespace TRIS {
         bool check = false;
 
         for(int i = 0; i < 3; i++){
-            if(grid[i][0] == grid[i][1] && grid[i][1] == grid[i][2]) check = check || true;
+            if(grid[i][0] == grid[i][1] && grid[i][1] == grid[i][2] && grid[i][0] != ' ') check = check || true;
             if(check) return true;
             check = false;
         }
@@ -86,6 +86,14 @@ namespace TRIS {
         int const gameEnd = 2; 
 
         if(moves >= 9){
+            winner = this -> rowsCheck();
+            winner = winner || this -> columnsCheck();
+            winner = winner || this -> diagonalsCheck();
+
+            if(winner){
+                return this -> playerSwitch();
+            }
+            
             return END;
         }else if (moves >= 5){
             winner = this -> rowsCheck();
