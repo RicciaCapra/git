@@ -10,6 +10,7 @@ namespace TRIS {
                 if(grid[j][i] == grid[j + 1][i]) check = check || true;
             }
             if(check) return true;
+            check = false;
         }
 
         return false;
@@ -23,6 +24,7 @@ namespace TRIS {
                 if(grid[i][j] == grid[i][j + 1]) check = check || true;
             }
             if(check) return true;
+            check = false;
         }
 
         return false;
