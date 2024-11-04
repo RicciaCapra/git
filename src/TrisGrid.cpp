@@ -1,5 +1,7 @@
 #include "TrisGrid.h"
 
+namespace TRIS {
+
 TrisGrid::TrisGrid(){
     for (int i = 0; i < 3; i++){
         for (int j = 0; j < 3; j++){
@@ -78,3 +80,5 @@ bool TrisGrid::diagonalCheck(int row, int column){
 
     return false;
 };
+
+}

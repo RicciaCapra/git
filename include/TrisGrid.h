@@ -1,23 +1,33 @@
 #ifndef TRISGRID_H
 #define TRISGRID_H
 
-class TrisGrid{
-    public:
-    char grid[3][3];
-    int moves = 0;
+namespace TRIS {
 
-    TrisGrid();
+    enum GridState {
+        PLAYING,
+        WIN_PL
+    };
 
-    bool insertMove(int row, int column, char player);
+    class TrisGrid{
+        public:
+        char grid[3][3];
+        int moves = 0;
 
-    int trisCheck(int row, int column);
+        TrisGrid();
 
-    bool rowCheck(int row);
+        bool insertMove(int row, int column, char player);
 
-    bool columnCheck(int column);
+        int trisCheck(int row, int column);
 
-    bool diagonalCheck(int row, int column);
+        bool rowCheck(int row);
 
-};
+        bool columnCheck(int column);
+
+        bool diagonalCheck(int row, int column);
+
+    };
+
+}
+
 
 #endif
