@@ -54,15 +54,6 @@ int main() {
             int row = mouse_x/square_width;
             int column = mouse_y/square_height;
 
-            /*
-            cout << row << " " << column << " " << Grid.moves << endl;
-
-            cout << Grid.grid[0][0] << Grid.grid[0][1] << Grid.grid[0][2] << endl <<
-                    Grid.grid[1][0] << Grid.grid[1][1] << Grid.grid[1][2] << endl <<
-                    Grid.grid[2][0] << Grid.grid[2][1] << Grid.grid[2][2] << endl;
-
-            */
-
             switch (Grid.playerSwitch()) {
                 case PLAYER_1: current_player = player1;
                 break;
